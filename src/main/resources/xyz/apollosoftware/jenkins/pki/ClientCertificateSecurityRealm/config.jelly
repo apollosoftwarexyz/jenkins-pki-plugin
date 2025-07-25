@@ -1,0 +1,118 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+    <f:section title="${%tlsCertificateAttributes}">
+        <f:description>
+            Attributes can be extracted directly from the TLS certificate's X.500 Subject. This is ideal for
+            performance, if the attributes are available.
+            <br />
+            <b>
+                You can leave a field blank to avoid extracting it from the TLS certificate (e.g., if it is not
+                available as part of the certificate.
+            </b>
+            <br />
+            <br />
+            The attributes listed in <a href="https://datatracker.ietf.org/doc/html/rfc2253#section-2.3" target="_blank" rel="noopener">RFC 2253 (opens in a new tab)</a> are available by default:
+            <ul>
+                <li><b><code>CN</code></b> - commonName</li>
+                <li><b><code>L</code></b> - localityName</li>
+                <li><b><code>ST</code></b> - stateOrProvinceName</li>
+                <li><b><code>O</code></b> - organizationName</li>
+                <li><b><code>OU</code></b> - organizationalUnitName</li>
+                <li><b><code>C</code></b> - countryName</li>
+                <li><b><code>STREET</code></b> - streetAddress</li>
+                <li><b><code>DC</code></b> - domainComponentName</li>
+            </ul>
+
+            For other attributes, you'll need to add an entry to the list of Custom Attributes.
+        </f:description>
+
+        <br />
+
+        <f:entry title="${%usernameField}" field="usernameField">
+            <f:textbox placeholder="UID" />
+        </f:entry>
+        <f:entry title="${%nameField}" field="nameField">
+            <f:textbox placeholder="CN" />
+        </f:entry>
+        <f:entry title="${%groupField}" field="groupField">
+            <f:textbox placeholder="OU" />
+        </f:entry>
+        <f:entry title="${%emailField}" field="emailField">
+            <f:textbox placeholder="E" />
+        </f:entry>
+
+        <f:advanced title="${%customX500Attributes}">
+            <f:entry field="customAttributes">
+                <f:repeatableProperty field="customAttributes" add="${%addCustomX500Attribute}" />
+            </f:entry>
+        </f:advanced>
+    </f:section>
+
+    <f:section title="${%ldapConfiguration}">
+        <f:description>
+            Optionally, enrich the data retrieved from a user's TLS Certificate from an LDAP server.
+            <br />
+            <b>You can leave a field blank to avoid querying it in LDAP.</b>
+        </f:description>
+
+        <br />
+        
+        <div class="jenkins-alert jenkins-alert-warning">
+            <b>Warning!</b> Misconfiguring LDAP can render your Jenkins instance inaccessible. If you need to restore access, you can set <code>ldapEnabled</code> to false in your Jenkins instance's <code>config.xml</code> file.
+        </div>
+
+        <br />
+
+        <f:entry title="${%enableLdap}" field="ldapEnabled">
+            <f:checkbox />
+        </f:entry>
+        <f:entry title="${%ldapCacheDuration}" field="ldapCacheDuration">
+            <f:number min="0" max="86400" default="30" />
+        </f:entry>
+
+        <f:entry title="${%serverUrl}" field="ldapServerUrl">
+            <f:textbox placeholder="ldap://localhost:389/" />
+        </f:entry>
+
+        <f:entry title="${%baseDN}" field="ldapBaseDN">
+            <f:textbox placeholder="O=My Company,C=GB" />
+        </f:entry>
+
+        <f:advanced title="${%ldapManagerAuthentication}">
+            <f:entry title="${%managerDN}" field="ldapManagerDN">
+                <f:textbox placeholder="CN=admin" />
+            </f:entry>
+            <f:entry title="${%managerPassword}" field="ldapManagerPassword">
+                <f:password />
+            </f:entry>
+        </f:advanced>
+
+        <f:advanced title="${%ldapSearchConfiguration}">
+            <f:entry title="${%userSearchBase}" field="userSearchBase">
+                <f:textbox placeholder="OU=people" />
+            </f:entry>
+            <f:entry title="${%userSearchFilter}" field="userSearchFilter">
+                <f:textbox placeholder="DN={0}" />
+            </f:entry>
+
+            <f:entry title="${%groupSearchBase}" field="groupSearchBase">
+                <f:textbox placeholder="OU=groups" />
+            </f:entry>
+            <f:entry title="${%groupSearchFilter}" field="groupSearchFilter">
+                <f:textbox placeholder="(&amp;(|(objectclass=groupOfUniqueNames)(objectclass=group))(|(uniqueMember={0})(member={0})))" />
+            </f:entry>
+        </f:advanced>
+
+        <f:entry title="${%ldapUsernameField}" field="ldapUsernameField">
+            <f:textbox placeholder="uid" />
+        </f:entry>
+
+        <f:entry title="${%ldapNameField}" field="ldapNameField">
+            <f:textbox placeholder="cn" />
+        </f:entry>
+
+        <f:entry title="${%ldapEmailField}" field="ldapEmailField">
+            <f:textbox placeholder="mail" />
+        </f:entry>
+    </f:section>
+</j:jelly>

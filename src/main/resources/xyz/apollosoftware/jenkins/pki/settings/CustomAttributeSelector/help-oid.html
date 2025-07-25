@@ -1,0 +1,37 @@
+<div>
+    <p><b>Object Identifier (OID)</b></p>
+    <p>An <a href="https://www.oss.com/asn1/resources/asn1-made-simple/asn1-quick-reference/object-identifier.html" target="_blank">Object Identifier (OID) (opens in a new tab)</a> is a unique ASN.1 identifier for a field. All fields have an OID, but particularly well-known fields will be referred to by their alias (see above).</p>
+
+    <p style="margin-top: 2em"><b>Common OID mappings:</b></p>
+    <table style="border: 1px solid black; border-collapse: collapse; display: inline-block">
+        <thead>
+            <tr style="border: 1px solid black;">
+                <th style="border: 1px solid black; padding: 5px 12px;">Purpose</th>
+                <th style="border: 1px solid black; padding: 5px 12px;">Attribute Name</th>
+                <th style="border: 1px solid black; padding: 5px 12px;">Object Identifier (OID)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black; padding: 5px 12px;">Email address</td>
+                <td style="border: 1px solid black; padding: 5px 12px;"><code>E</code></td>
+                <td style="border: 1px solid black; padding: 5px 12px;"><code>1.2.840.113549.1.9.1</code></td>
+            </tr>
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black; padding: 5px 12px;">User ID</td>
+                <td style="border: 1px solid black; padding: 5px 12px;"><code>UID</code></td>
+                <td style="border: 1px solid black; padding: 5px 12px;"><code>0.9.2342.19200300.100.1.44</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br /><br />
+
+    <p><b>For example:</b></p>
+    <p>
+        The email address attribute OID is <b><code>1.2.840.113549.1.9.1</code></b> (typically aliased as <b><code>E</code></b>).
+        So you could enter a mapping of <b><code>1.2.840.113549.1.9.1</code></b> for the OID, and <b><code>E</code></b> for the attribute name.
+        <br />
+        Then, if your certificates included an email address, you can enter <b><code>E</code></b> for the "Email Field" under TLS Certificate Attributes (see the section above) to use it.
+    </p>
+</div>

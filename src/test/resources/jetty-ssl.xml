@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_10_0.dtd">
+<Configure id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory$Server">
+    <!-- TLS (use secure protocol versions only) -->
+    <Set name="IncludeProtocols">
+        <Array type="String">
+            <!-- You may need to add TLSv1.2 for older browsers, but avoid it unless it's needed. -->
+            <Item>TLSv1.3</Item>
+        </Array>
+    </Set>
+
+    <!--
+        NeedClientAuth will block connections where the client does not present a certificate.
+
+        WantClientAuth will attempt to perform authentication with a client certificate but will not block the
+        connection if the certificate is missing.
+    -->
+    <Set name="NeedClientAuth"><Property name="jetty.sslContext.needClientAuth" default="false" /></Set>
+    <Set name="WantClientAuth"><Property name="jetty.sslContext.wantClientAuth" default="true" /></Set>
+
+    <!-- Keystore (contains TLS certificate) -->
+    <Set name="keyStoreType"><Property name="jetty.sslContext.keyStoreType" default="PKCS12" /></Set>
+    <Set name="keyStorePath">
+        <Property name="jetty.base" default="." />/<Property name="jetty.sslContext.keyStorePath" default="src/test/resources/tls/keystore.p12" />
+    </Set>
+    <Set name="keyStorePassword">
+        <Property name="jetty.sslContext.keyStorePassword" default="changeit" />
+    </Set>
+
+    <!-- Truststore (contains TLS CA) -->
+    <Set name="trustStoreType"><Property name="jetty.sslContext.trustStoreType" default="PKCS12" /></Set>
+    <Set name="trustStorePath">
+        <Property name="jetty.base" default="." />/<Property name="jetty.sslContext.trustStorePath" default="src/test/resources/tls/truststore.p12" />
+    </Set>
+    <Set name="trustStorePassword">
+        <Property name="jetty.sslContext.trustStorePassword" default="changeit" />
+    </Set>
+
+    <!-- Javax Key Manager -->
+    <Set name="keyManagerPassword">
+        <Property name="jetty.sslContext.keyManagerPassword" default="changeit" />
+    </Set>
+</Configure>

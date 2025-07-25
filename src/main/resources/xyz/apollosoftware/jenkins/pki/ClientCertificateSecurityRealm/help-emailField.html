@@ -1,0 +1,10 @@
+<div>
+    <p><b>Certificate Email Field</b></p>
+    <p>The field of the X.500 subject that contains the user's email address.</p>
+    <p>Your X.509 infrastructure may not be set up in this way (LDAP is likely a better fit for this property). In these cases, you should leave this field blank.</p>
+    <br />
+
+    <p><b>For example:</b></p>
+    <p>If your subject looked like "<code>UID=jsmith,E=john@myorganization.com,CN=John Smith,OU=people,O=My Organization,C=GB</code>"; you could supply <code>E</code> as the "Email Field" to get "john@myorganization.com" as the email address.</p>
+    <p>You would have to configure <b><code>E</code></b> as a custom attribute below as it is non-standard per RFC 2253.</p>
+</div>

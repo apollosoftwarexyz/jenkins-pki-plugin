@@ -1,0 +1,5 @@
+<div>
+    <p>The filter used to locate groups.</p>
+    <p>Consider this field to be an additional constraint on the <code>groupSearchBase</code> that ensures only groups with the correct class are returned.</p>
+    <p>The default value is: <code>(&amp;(|(objectclass=groupOfUniqueNames)(objectclass=group))(|(uniqueMember={0})(member={0})))</code>, which searches for objects with the <code>group</code> or <code>groupOfUniqueNames</code> class where the group contains a member with the given DN.</p>
+</div>
